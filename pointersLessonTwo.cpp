@@ -26,3 +26,58 @@ void pointersInArray(){
 	//this does not work with ints I have NO IDEA WHY!
 	const char *ptrArra[3] = { "3","2" };
 }
+
+/*returning multiple values from a function using pointers
+using pointers to return more than one value from a function is one of the most common uses of pointers*/
+int returnSmallestNum(int nums[5]) {
+	int small=nums[0];
+	for (int i = 0; i < 5; i++) {
+		cout << nums[i] << "\n";
+		if (small > nums[i] ) {
+			small = nums[i];
+		};
+	}
+	cout << "smol: " << small << "\n";
+	return small;
+}
+
+int returnBiggest(int nums[5]) {
+	int bg = nums[0];
+	for (int i = 0; i < 5; i++) {
+		if (nums[i] > bg) {
+			bg = nums[i];
+		}
+	}
+	return bg;
+}
+
+/*get both with one function by using pointers, beause we want to return TWO values from the function. we have to pass 
+  the addresses of the two value by reference, then change the values stored in those two addresses to the min and max
+*/
+void getBoth(int nums[5], int*min, int*max ) {
+	for (int i = 0; i < 5; i++) {
+		cout << nums[i] << "\n";
+		if (*min > nums[i]) {
+			*min = nums[i];
+		};
+		if (nums[i] > *max) {
+			*max = nums[i];
+		}
+	}
+	/*this function will directly modify the values that are stored in the& min&& max addresses, those same addresses will be
+	accessible directly in our multipleValsOneFunc(), but MODIFIED!
+	*/
+}
+
+void multipleValsOneFunc() {
+	int nums[5] = { 5,4,-1,29,6 };
+	int smol = returnSmallestNum(nums);
+	int big = returnBiggest(nums);
+	cout << "min is: " << smol << " and biggest is: " << big << "\n";
+	int min = nums[0];
+	int max = nums[1];
+	//passing parameter by reference!
+	getBoth(nums, &min, &max);
+    //change directly by address!!!!!!
+	cout << "Modified max?: " << min << " and modified min: " << max;
+}
